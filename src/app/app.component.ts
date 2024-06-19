@@ -9,6 +9,7 @@ import { AppService, ViaCepResponse } from './app.service';
 import { map, Observable } from 'rxjs';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { NgxMaskService } from 'ngx-mask';
 
 @Component({
   selector: 'app-root',
@@ -29,16 +30,15 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class AppComponent implements OnInit {
   viaCepObservable$!: Observable<ViaCepResponse>;
-  
   title = 'BDMG Teste Frontend';
   panelOpenState: boolean = true;
   viaCepData!: ViaCepResponse;
   viaCepForm!: FormGroup;
-  
   @Input() name!: string;
 
   constructor(
     private formBuilder: FormBuilder,
+    private ngxMaskService: NgxMaskService,
     private appService: AppService
   ) { }
 
@@ -53,9 +53,9 @@ export class AppComponent implements OnInit {
 
   private buildForm({ cep, logradouro, complemento, bairro, localidade, uf, gia, ddd, siafi, ibge }: ViaCepResponse): void {
     this.viaCepForm = this.formBuilder.group({
-      cep: [cep, Validators.required],
+      cep: [this.ngxMaskService.applyMask(cep, '00000-000'), Validators.required],
       logradouro: [logradouro, Validators.required],
-      complemento: [complemento, Validators.required],
+      complemento: [this.ngxMaskService.applyMask(complemento, '0.000'), Validators.required],
       bairro: [bairro, Validators.required],
       localidade: [localidade, Validators.required],
       uf: [uf, Validators.required],
