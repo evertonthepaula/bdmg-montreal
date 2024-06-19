@@ -1,5 +1,10 @@
-p {
-  font-family: Lato;
+blockquote {
+  background: #6ae5e04a;
+  padding: 16px;
+}
+
+.main {
+  padding: 64px 32px;
 }
 
 .form {
@@ -7,4 +12,7 @@ p {
   flex-direction: column;
 }
 
-.form-actions {}
+.form-actions {
+  padding: 16px;
+  text-align: right;
+}

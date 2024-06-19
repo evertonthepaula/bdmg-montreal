@@ -45,10 +45,14 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.buildForm(new ViaCepResponse());
 
-    this.viaCepObservable$ = this.appService.get().pipe(map(data => {
-      this.viaCepForm.patchValue(data);
-      return data
-    }))
+    this.viaCepObservable$ = this.appService
+      .get()
+      .pipe(
+        map(data => {
+          this.viaCepForm.patchValue(data);
+          return data
+        })
+      )
   }
 
   private buildForm({ cep, logradouro, complemento, bairro, localidade, uf, gia, ddd, siafi, ibge }: ViaCepResponse): void {
@@ -70,6 +74,12 @@ export class AppComponent implements OnInit {
     if (this.viaCepForm.valid) {
       return;
     }
+
+    const payload = this.viaCepForm.getRawValue();
+
+
+    this.appService.saveDraft(payload)
+
   }
 
 }

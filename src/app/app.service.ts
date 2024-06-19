@@ -24,4 +24,8 @@ export class AppService {
   get(): Observable<ViaCepResponse> {
     return this.http.get<ViaCepResponse>(`https://viacep.com.br/ws/30160907/json/`);
   }
+
+  saveDraft(data: ViaCepResponse): void {
+    localStorage.setItem('ViaCepData', JSON.stringify(data));
+  }
 }
